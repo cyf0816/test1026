@@ -1,0 +1,41 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.9.RELEASE'
+    }
+    repositories {
+        maven{
+            url "http://172.16.60.188:8081/nexus/content/groups/public"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    maven{
+        url "http://172.16.60.188:8081/nexus/content/groups/public"
+    }
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile 'jstl:jstl:1.2:sources'
+    compile 'org.springframework.boot:spring-boot-parent:2.1.0.M2'
+    compile 'org.apache.tomcat.embed:tomcat-embed-websocket:9.0.12'
+}
